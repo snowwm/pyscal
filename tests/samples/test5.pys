@@ -1,0 +1,15 @@
+program ping_pong(n: int):
+    # test mutual recursion
+    # and variable shadowing
+
+    def ping(n) -> void:
+        print 'ping ', n, '\n'
+        if n > 0:
+            pong(n - 1)
+
+    def pong(n) -> void:
+        print 'pong ', n, '\n'
+        if n > 0:
+            ping(n - 1)
+
+    ping(n)

@@ -1,0 +1,73 @@
+### A formal grammar in EBNF. Capitalized words are token codes.
+
+### Program
+
+program           ::= PROGRAM func-signature COLON block
+
+### Statements
+
+statement         ::= block
+                    | var-statement | assignment
+                    | func-definition | func-call
+                    | if-statement | while-statement
+                    | special-statement
+                    | PASS
+
+block             ::= INDENT {statement} DEDENT
+
+if-statement      ::= IF expr COLON block
+                      {ELIF expr COLON block}
+                      [ELSE expr COLON block]
+
+while-statement   ::= WHILE expr COLON block
+
+special-statement ::= print-statement
+                    | read-statement
+                    | BREAK | CONTINUE
+                    | RETURN (expr | PASS)
+
+print-statement   ::= PRINT expr {COMMA expr}
+
+read-statement    ::= READ variable {COMMA variable}
+
+### Expressions
+
+expr              ::= rel-expr {(AND | OR | XOR) rel-expr}
+
+rel-expr          ::= [NOT] arith-expr {(LT | LTE | GT | GTE | EQ | NEQ) arith-expr}
+
+arith-expr        ::= term {(PLUS | MINUS) term}
+
+term              ::= factor {(MUL | INT-DIV | REAL-DIV | MOD) factor}
+
+factor            ::= PLUS factor | MINUS factor | CAST factor
+                    | LPAREN expr RPAREN
+                    | literal
+                    | variable
+                    | func-call
+
+literal           ::= LITERAL
+
+### Variables
+
+variable          ::= ID
+
+type              ::= ID
+
+var-statement     ::= VAR var-decl-or-defn {COMMA var-decl-or-defn} [COLON type]
+
+var-decl-or-defn  ::= variable | assignment
+
+assignment        ::= variable (ASSIGN | CAST-ASSIGN) expr
+
+### Functions
+
+func-definition   ::= DEF func-signature COLON block
+
+func-signature    ::= ID LPAREN [formal-parameters] RPAREN [ARROW type]
+
+formal-parameters ::= param-list {COMMA param-list}
+
+param-list        ::= variable {COMMA variable} [COLON type]
+
+func-call         ::= ID LPAREN [expr {COMMA expr}] RPAREN

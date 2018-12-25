@@ -1,0 +1,15 @@
+program factorial2() -> int:
+    var n, result := 1: int
+
+    print 'Enter a non-negative integer: '
+    read n
+
+    if n < 0:
+        print 'Invalid argument: ', n, '\n'
+        return -1
+
+    while n > 1:
+        result := result * n
+        n := n - 1
+
+    print result, '\n'

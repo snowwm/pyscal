@@ -1,0 +1,7 @@
+program bad_indent():
+    a block of code
+  # comments have no effect
+
+  # blank lines too
+  another block
+  # but a block does have some

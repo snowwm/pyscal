@@ -1,0 +1,2 @@
+program bad_ret_type() -> real:
+    print 'Do you REALLY see me?' # NO.
